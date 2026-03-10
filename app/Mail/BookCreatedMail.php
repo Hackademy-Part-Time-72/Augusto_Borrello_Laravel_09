@@ -40,12 +40,12 @@ public function build()
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+//     public function content(): Content
+// {
+//     return new Content(
+//         view: 'emails.book-created',
+//     );
+// }
 
     /**
      * Get the attachments for the message.

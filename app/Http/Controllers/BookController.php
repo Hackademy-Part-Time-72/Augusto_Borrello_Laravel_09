@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\Mail;
+// use App\Mail\SendMail;
+use App\Http\Requests\BookStoreRequest;
 use App\Mail\BookCreatedMail;
 
 class BookController extends Controller
@@ -14,37 +16,64 @@ class BookController extends Controller
         $books = Book::all();
         return view('books.index', compact('books'));
     }
-
-    public function create()
-    {
-        return view('books.create');
-        
-        // Book::create($request->all());
-        // return redirect()->route('books.index');
-        
-        $request->validate([
-            'title' => 'required|max:255',
-            'author' => 'required|max:255',
-            'pages' => 'required|integer|min:1',
-            'year' => 'nullable|integer'
-            ]);
-        $book = Book::create($request->all());
-            
-        Mail::to('test@test.com')->send(new BookCreatedMail($book));
-            
-        return redirect()->route('books.index')
-        ->with('success', 'Libro creato con successo!');
-    }
+public function create()
+{
+    return view('books.create');
 }
-            
-    // Book::create($request->all());
-
-//     return redirect()->route('books.index');
-//     return redirect()->route('books.index')
-//         ->with('success', 'Libro creato con successo!');
-// }
-       
-//     }
-// }
+public function store(BookStoreRequest $request)
+{
     
-  
+    $image = null;
+    
+    if ($request->hasFile('image')) {
+        
+        $image = $request->file('image')->store('images','public');
+        
+        }
+        $book = Book::create([
+    'title' => $request->title,
+    'author' => $request->author,
+    'pages' => $request->pages,
+    'year' => $request->year,
+    'image' => $image,
+]);
+           Mail::to('test@email.it')->send(new BookCreatedMail($book));
+            
+            return redirect()
+            ->route('books.index')
+            ->with('success','Libro creato con successo!');
+            }
+            }
+            
+            // Book::create($request->all());
+            
+            //     return redirect()->route('books.index');
+            //     return redirect()->route('books.index')
+            //         ->with('success', 'Libro creato con successo!');
+            // }
+            
+            //     }
+            // }
+            
+            
+            
+            // public function create()
+            // {
+            //     return view('books.create');
+                
+            //     // Book::create($request->all());
+            //     // return redirect()->route('books.index');
+                
+            //     $request->validate([
+            //         'title' => 'required|max:255',
+            //         'author' => 'required|max:255',
+            //         'pages' => 'required|integer|min:1',
+            //         'year' => 'nullable|integer'
+            //         ]);
+            //     $book = Book::create($request->all());
+                    
+            //     Mail::to('test@test.com')->send(new BookCreatedMail($book));
+                    
+            //     return redirect()->route('books.index')
+            //     ->with('success', 'Libro creato con successo!');
+            // }
