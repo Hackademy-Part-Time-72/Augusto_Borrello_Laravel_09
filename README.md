@@ -1,164 +1,166 @@
-# Mini Gestionale Biblioteca - Laravel 007
+# Progetto Laravel - Gestione Libri
 
-## Descrizione progetto
+## Descrizione
 
-Questo progetto è stato sviluppato utilizzando **Laravel** e rappresenta un piccolo gestionale per la gestione dei libri di una biblioteca.
+Questo progetto Laravel permette di gestire una lista di libri con le seguenti funzionalità:
 
-L'applicazione permette di:
-
-* visualizzare la lista dei libri presenti nel database
-* aggiungere nuovi libri tramite un form
-* salvare i libri nel database
-* inviare una email quando un libro viene creato
-
-Il progetto utilizza **Laravel, MySQL e Bootstrap** per la parte grafica.
+* Creazione di un libro
+* Upload di una copertina
+* Visualizzazione dei libri
+* Invio email alla creazione del libro
+* Visualizzazione immagine random se la copertina non è presente
 
 ---
 
 ## Tecnologie utilizzate
 
-* Laravel
 * PHP
+* Laravel
 * MySQL
-* TablePlus
 * Bootstrap
-* Vite
-* Blade Template Engine
+* Mailtrap
+* TablePlus
 
 ---
 
 ## Struttura del progetto
 
-Il progetto è organizzato seguendo il pattern **MVC (Model View Controller)**:
+### Model
 
-### Controller
+`app/Models/Book.php`
 
-È stato creato un **BookController** che gestisce:
-
-* visualizzazione lista libri
-* form creazione libro
-* salvataggio libro nel database
+Gestisce i dati dei libri nel database.
 
 ---
 
-### Model
+### Controller
 
-È stato creato il modello:
+`app/Http/Controllers/BookController.php`
 
-```
-Book
-```
+Gestisce:
 
-che rappresenta la tabella **books** nel database.
+* index → visualizza i libri
+* create → form creazione libro
+* store → salva libro e immagine
+
+---
+
+### Request Validation
+
+`app/Http/Requests/BookStoreRequest.php`
+
+Valida i dati inseriti nel form.
 
 ---
 
 ### Migration
 
-È stata creata la migration:
+Tabella **books**
 
-```
-create_books_table
-```
-
-con le seguenti colonne:
+Campi:
 
 * id
-* title
-* author
+* name
 * pages
 * year
+* image
 * created_at
 * updated_at
 
 ---
 
-### Views
+### Upload immagini
 
-Le principali viste dell'applicazione sono:
-
-* **homepage** → pagina principale
-* **books/index** → lista dei libri
-* **books/create** → form per aggiungere un libro
-
-Le viste utilizzano **Blade** e sono inserite in un **layout principale con navbar**.
-
----
-
-## Rotte
-
-Le rotte definite nel progetto sono:
+Le immagini vengono salvate in:
 
 ```
-/              → homepage
-/books         → lista libri
-/books/create  → form inserimento libro
-/books/store   → salvataggio libro
+storage/app/public/images
+```
+
+e rese pubbliche tramite:
+
+```
+php artisan storage:link
 ```
 
 ---
 
-## Funzionalità implementate
+### Email
 
-### 1. Visualizzazione libri
+Alla creazione del libro viene inviata una mail tramite **Mailtrap**.
 
-La pagina **Lista Libri** mostra tutti i libri presenti nel database.
-
----
-
-### 2. Creazione libro
-
-Attraverso un form è possibile inserire:
-
-* titolo
-* autore
-* numero pagine
-* anno
-
----
-
-### 3. Validazione dei campi
-
-Prima di salvare il libro vengono verificati i dati inseriti:
-
-* titolo obbligatorio
-* autore obbligatorio
-* pagine numero intero
-* anno opzionale
-
----
-
-### 4. Messaggio di successo
-
-Dopo il salvataggio del libro l'utente viene reindirizzato alla lista dei libri con un messaggio:
+Classe mail:
 
 ```
-Libro creato con successo!
+app/Mail/SendMail.php
+```
+
+View email:
+
+```
+resources/views/email.blade.php
 ```
 
 ---
 
-### 5. Invio email
+### Immagini random
 
-Quando un libro viene creato viene inviata automaticamente una email di notifica.
+Se un libro non ha immagine viene mostrata un'immagine random tramite:
+
+```
+https://picsum.photos
+```
 
 ---
 
-## Obiettivo esercizio
+## Avvio del progetto
 
-L'obiettivo dell'esercizio era comprendere:
+Installare dipendenze
 
-* utilizzo dei **Controller**
-* creazione di **Migration**
-* utilizzo dei **Model**
-* gestione delle **Rotte**
-* validazione dei form
-* invio email tramite Laravel
+```
+composer install
+```
+
+Creare file env
+
+```
+cp .env.example .env
+```
+
+Generare chiave
+
+```
+php artisan key:generate
+```
+
+Migrazioni database
+
+```
+php artisan migrate
+```
+
+Creare link storage
+
+```
+php artisan storage:link
+```
+
+Avviare server
+
+```
+php artisan serve
+```
+
+---
+
+## URL applicazione
+
+```
+http://127.0.0.1:8000
+```
 
 ---
 
 ## Autore
 
-Progetto realizzato da:
-
-**Augusto Borrello**
+Augusto Borrello
