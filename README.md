@@ -179,37 +179,6 @@ Le pagine di login e registrazione sono state migliorate graficamente con:
 
 - navbar condivisa con il resto dell'applicazione
 
----
-
-##  Struttura del progetto
-
-```
-
-app/
- └── Http/
-      └── Controllers/
-           └── BookController.php
-
-resources/
- └── views/
-      ├── auth/
-      │    ├── login.blade.php
-      │    └── register.blade.php
-      │
-      ├── books/
-      │    ├── create.blade.php
-      │    └── index.blade.php
-      │
-      ├── layouts/
-      │    └── app.blade.php
-      │
-      └── homepage.blade.php
-
-routes/
- └── web.php
-
- ```
-
  ---
 
  ## Progetto sviluppato da:
