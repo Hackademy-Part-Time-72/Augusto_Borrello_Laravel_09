@@ -1,166 +1,72 @@
-# Progetto Laravel - Gestione Libri
+# 📚 Mini Gestionale Biblioteca - Laravel 09
 
-## Descrizione
+## 📖 Descrizione del progetto
 
-Questo progetto Laravel permette di gestire una lista di libri con le seguenti funzionalità:
+Questo progetto è stato sviluppato utilizzando **Laravel 12** e rappresenta un **mini gestionale per la gestione dei libri di una biblioteca**.
 
-* Creazione di un libro
-* Upload di una copertina
-* Visualizzazione dei libri
-* Invio email alla creazione del libro
-* Visualizzazione immagine random se la copertina non è presente
+Il progetto implementa il sistema di autenticazione tramite **Laravel Fortify** e permette agli utenti autenticati di gestire i libri della biblioteca.
 
 ---
 
-## Tecnologie utilizzate
+# 🛠 Tecnologie utilizzate
 
-* PHP
-* Laravel
-* MySQL
-* Bootstrap
-* Mailtrap
-* TablePlus
-
----
-
-## Struttura del progetto
-
-### Model
-
-`app/Models/Book.php`
-
-Gestisce i dati dei libri nel database.
+- PHP
+- Laravel 12
+- Laravel Fortify
+- SQLite
+- Blade Template Engine
+- Bootstrap 5
+- Git / GitHub
 
 ---
 
-### Controller
+# 🧩 Esercizio 1 – Installazione Fortify
 
-`app/Http/Controllers/BookController.php`
+È stato installato e configurato **Laravel Fortify** per gestire il sistema di autenticazione.
 
-Gestisce:
+Le funzionalità implementate sono:
 
-* index → visualizza i libri
-* create → form creazione libro
-* store → salva libro e immagine
+- Registrazione utenti
+- Login utenti
+- Logout utenti
 
----
+I form utilizzano i seguenti campi:
 
-### Request Validation
+### Registrazione
 
-`app/Http/Requests/BookStoreRequest.php`
+- name
+- email
+- password
+- password_confirmation
 
-Valida i dati inseriti nel form.
+### Login
 
----
-
-### Migration
-
-Tabella **books**
-
-Campi:
-
-* id
-* name
-* pages
-* year
-* image
-* created_at
-* updated_at
+- email
+- password
 
 ---
 
-### Upload immagini
+# ⚠️ Esercizio 2 – Validazione form
 
-Le immagini vengono salvate in:
+Sono stati testati i form di **login e registrazione** inviandoli con i campi vuoti.
 
-```
-storage/app/public/images
-```
+Laravel Fortify restituisce automaticamente i messaggi di errore tramite il sistema di validazione.
 
-e rese pubbliche tramite:
+I messaggi vengono mostrati nelle view utilizzando Blade:
 
-```
-php artisan storage:link
-```
-
----
-
-### Email
-
-Alla creazione del libro viene inviata una mail tramite **Mailtrap**.
-
-Classe mail:
-
-```
-app/Mail/SendMail.php
-```
-
-View email:
-
-```
-resources/views/email.blade.php
-```
+```blade
+@error('email')
+<span>{{ $message }}</span>
+@enderror
 
 ---
 
-### Immagini random
+# 🔐 Esercizio 3 – Test autenticazione
 
-Se un libro non ha immagine viene mostrata un'immagine random tramite:
+Sono stati effettuati test di:
 
-```
-https://picsum.photos
-```
+-registrazione utente
 
----
+-login utente
 
-## Avvio del progetto
-
-Installare dipendenze
-
-```
-composer install
-```
-
-Creare file env
-
-```
-cp .env.example .env
-```
-
-Generare chiave
-
-```
-php artisan key:generate
-```
-
-Migrazioni database
-
-```
-php artisan migrate
-```
-
-Creare link storage
-
-```
-php artisan storage:link
-```
-
-Avviare server
-
-```
-php artisan serve
-```
-
----
-
-## URL applicazione
-
-```
-http://127.0.0.1:8000
-```
-
----
-
-## Autore
-
-Augusto Borrello
+In caso di autenticazione corretta l’utente viene reindirizzato alla homepage del sito ```(/).
