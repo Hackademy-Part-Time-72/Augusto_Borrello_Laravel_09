@@ -16,7 +16,7 @@ return new class extends Migration
         $table->string('title');
         $table->string('author');
         $table->integer('pages');
-        $table->integer('year')->nullable();
+        $table->integer('year')->default(false);
         $table->timestamps();
     });
 }

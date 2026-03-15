@@ -30,7 +30,20 @@
         <td>{{ $book->pages }}</td>
         <td>{{ $book->year }}</td>
     <td>
+<a href="{{ route('books.edit', $book) }}">
+            Edit
+        </a>
+         <form action="{{ route('books.destroy', $book) }}" method="POST">
+            @csrf
+            @method('DELETE')
 
+            <button type="submit">
+                Delete
+            </button>
+
+        </form>
+
+        
           @if($book->image)
 
         <img src="{{ asset('storage/'.$book->image) }}" width="80">

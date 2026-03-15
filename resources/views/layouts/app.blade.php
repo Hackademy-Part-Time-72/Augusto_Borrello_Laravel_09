@@ -46,6 +46,12 @@
 
 <div class="col-md-9">
 @yield('content')
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+@endif
 </div>
 
 @else
@@ -59,56 +65,3 @@
 </div>
 
 </div>
-{{-- @auth
-<form action="/logout" method="POST">
-  @csrf
-  <button>Logout</button>
-</form>
-@endauth
-
-
-@guest
-<a href="/login">Accedi</a>
-<a href="/register">Registrati</a>
-@endguest
-<div>
-  <a class="btn btn-outline-light" href="{{ route('books.index') }}">Lista Libri</a>
-  <a class="btn btn-success" href="{{ route('books.create') }}">Aggiungi Libro</a>
-</div>
-</div>
-</nav> --}}
-
-{{-- 
-@guest
-<a class="btn btn-outline-light me-2" href="{{ route('login') }}">Login</a>
-<a class="btn btn-success" href="{{ route('register') }}">Registrati</a>
-@endguest
-
-
-@auth
-<span class="text-white me-3">
-{{ auth()->user()->email }}
-</span>
-
-<form action="/logout" method="POST" class="d-inline">
-@csrf
-<button class="btn btn-danger">Logout</button>
-</form>
-@endauth
-
-@guest
-<a class="btn btn-outline-light me-2" href="{{ route('login') }}">Login</a>
-<a class="btn btn-success" href="{{ route('register') }}">Registrati</a>
-@endguest
-
-
-@auth
-<span class="text-white me-3">
-{{ auth()->user()->email }}
-</span>
-
-<form action="/logout" method="POST" class="d-inline">
-@csrf
-<button class="btn btn-danger">Logout</button>
-</form>
-@endauth  --}}

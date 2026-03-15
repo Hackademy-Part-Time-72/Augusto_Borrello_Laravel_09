@@ -1,188 +1,121 @@
-#  Mini Gestionale Biblioteca - Laravel 09
+# 📚 Mini Gestionale Biblioteca - Laravel
 
-##  Descrizione del progetto
+Questo progetto è un **mini gestionale per la gestione di una biblioteca** sviluppato con **Laravel**.
 
-Questo progetto è un **mini gestionale per la gestione di una biblioteca** sviluppato utilizzando **Laravel 12**.
-
-L'applicazione permette agli utenti di registrarsi, effettuare il login e gestire una collezione di libri.
-
-Il sistema di autenticazione è stato implementato utilizzando **Laravel Fortify**, che gestisce login, registrazione, validazione dei form e protezione delle route tramite middleware.
+Permette di gestire un elenco di libri attraverso un sistema **CRUD completo**.
 
 ---
 
-#  Tecnologie utilizzate
+# 🚀 Funzionalità
 
-Il progetto è stato sviluppato utilizzando:
+Il progetto implementa le operazioni CRUD:
 
-- PHP
-- Laravel 12
-- Laravel Fortify
-- Blade Template Engine
-- Bootstrap 5
-- SQLite
-- Git
-- GitHub
+* Visualizzare tutti i libri
+* Inserire un nuovo libro
+* Modificare un libro esistente
+* Eliminare un libro
 
----
+Ogni libro contiene le seguenti informazioni:
 
-#  Funzionalità principali
-
-Il gestionale permette di:
-
-- Registrazione utenti
-- Login utenti
-- Logout utenti
-- Visualizzazione lista libri
-- Creazione nuovi libri
-- Visualizzazione dettagli libro
-- Protezione delle pagine tramite autenticazione
+* Titolo
+* Autore
+* Numero di pagine
+* Anno di pubblicazione
+* Immagine di copertina
 
 ---
 
-#  Implementazione degli esercizi
+# 🛠 Tecnologie utilizzate
 
-## Esercizio 1 – Installazione Fortify
-
-È stato installato **Laravel Fortify** per gestire il sistema di autenticazione dell'applicazione.
-
-Fortify gestisce:
-
-- registrazione utenti
-- login
-- logout
-- validazione dati
-- gestione password
-
-I form utilizzano i seguenti campi:
-
-### Registrazione
-
-- name
-- email
-- password
-- password_confirmation
-
-### Login
-
-- email
-- password
+* Laravel
+* PHP
+* MySQL
+* Blade
+* Bootstrap
 
 ---
 
-##  Esercizio 2 – Validazione form
-
-Sono stati testati i form di **login e registrazione** inviando i campi vuoti per verificare il corretto funzionamento della validazione.
-
-Laravel Fortify restituisce automaticamente i messaggi di errore tramite il sistema di validazione.
-
-Gli errori vengono mostrati nelle view tramite Blade utilizzando:
-
-```blade
-@error('email')
-<span>{{ $message }}</span>
-@enderror
-```
----
-
-##  Esercizio 3 – Redirect dopo login e registrazione
-
-Dopo una registrazione o un login effettuato con successo, l'utente viene automaticamente reindirizzato alla homepage dell'applicazione ```(/)```.
-
-Questo permette di accedere immediatamente alle funzionalità del gestionale.
-
----
-
-##  Esercizio 4 – Gestione stato autenticazione
-
-Per mostrare contenuti diversi in base allo stato dell'utente sono state utilizzate le direttive Blade:
+# 📂 Struttura principale del progetto
 
 ```
-@auth
-@guest
+app/
+ ├── Models
+ │    └── Book.php
+ ├── Http
+ │    └── Controllers
+ │         └── BookController.php
 
-```
-**Se l'utente NON è autenticato**
-
-La navbar mostra:
-
-- Login
-
-- Registrati
-
-- Se l'utente è autenticato
-
-- La navbar mostra:
-
-- email dell’utente
-
-- pulsante Logout
-
-Il logout viene gestito tramite form **POST**:
-
-```
-<form action="/logout" method="POST">
-@csrf
-<button type="submit">Logout</button>
-</form>
-
+resources/
+ └── views
+      └── books
+           ├── index.blade.php
+           ├── create.blade.php
+           └── edit.blade.php
 ```
 
 ---
 
-##  Esercizio 5 – Protezione delle route
+# ⚙️ Installazione del progetto
 
-Per proteggere alcune pagine è stato utilizzato il middleware **auth**.
-
-Le pagine protette sono:
-
--creazione libro
-
--gestione libri
-
--Nel file ```web.php``` è stato utilizzato il raggruppamento delle route:
+Clonare il repository:
 
 ```
-
-Route::middleware('auth')->group(function () {
-
-Route::get('/books/create',[BookController::class,'create'])->name('books.create');
-
-});
-
+git clone <repository-url>
 ```
 
-In questo modo solo gli utenti autenticati possono accedere alle funzionalità riservate.
+Entrare nella cartella del progetto:
+
+```
+cd nome-progetto
+```
+
+Installare le dipendenze:
+
+```
+composer install
+```
+
+Configurare il file `.env` con i dati del database.
+
+Eseguire le migration:
+
+```
+php artisan migrate
+```
+
+Avviare il server Laravel:
+
+```
+php artisan serve
+```
 
 ---
 
-###  Interfaccia grafica
+# 📌 Rotte principali
 
-L'interfaccia è stata realizzata utilizzando Bootstrap 5.
+Il progetto utilizza le **resource routes** di Laravel:
 
-- Sono state create:
+```
+Route::resource('books', BookController::class);
+```
 
-- navbar dinamica
+Questo genera automaticamente:
 
-- pagina login
+* books.index
+* books.create
+* books.store
+* books.edit
+* books.update
+* books.destroy
 
-- pagina registrazione
+---
 
-- homepage
+# 🎓 Scopo del progetto
 
-- pagine gestione libri
+Questo progetto è stato sviluppato come esercizio per apprendere:
 
-Le pagine di login e registrazione sono state migliorate graficamente con:
-
-- layout centrato
-
-- form più leggibili
-
-- navbar condivisa con il resto dell'applicazione
-
- ---
-
- ## Progetto sviluppato da:
-
-**Augusto Borrello**
-
-Hackademy – Full Stack Developer
+* Architettura MVC in Laravel
+* Gestione CRUD
+* Blade templating
+* Gestione database con migration
+* Routing in Laravel
